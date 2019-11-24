@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete student</title>
+</head>
+<body>
+<h1>Delete student</h1>
+<h2>Are you sure?</h2>
+<p>
+    <a href="/students">Student list</a>
+</p>
+<form th:action="@{/delete-student}" th:object="${student}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>First name:</td>
+            <td th:text="${student.firstName}"></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td th:text="${student.lastName}"></td>
+        </tr>
+        <tr>
+            <td>Birthday:</td>
+            <td th:text="${student.birthday}"></td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td th:text="${student.address}"></td>
+        </tr>
+        <tr>
+            <td>Sex:</td>
+            <td th:text="${student.sex}"></td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td th:text="${student.phone}"></td>
+        </tr>
+        <tr>
+            <td>Classroom:</td>
+            <td th:text="${student.getClassroom().getName()}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Delete student"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/create-student">Create new student</a>
+<br/>
+<a href="/create-classroom">Create new classroom</a>
+<h1>Students</h1>
+<form>
+    Search by firstname:
+    <input name="s" type="text"/>
+    <input type="submit" value="Search"/>
+</form>
+<br/>
+<p><a th:href="@{/sortByNameAsc}" ><button type="button">Sort By Name Asc</button></a></p>
+<p><a th:href="@{/sortByNameDesc}"><button type="button">Sort By Name Desc</button></a></p>
+<form action="/searchByClass" onchange="this.submit()">
+    <a>Search By Classroom </a>
+    <select name="search">
+        <option th:each="d:${classrooms}" th:text="${d.name}" th:value="${d.getId()}"></option>
+    </select>
+</form>
+<table border="1">
+    <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Birthday</th>
+        <th>Address</th>
+        <th>Sex</th>
+        <th>Phone</th>
+        <th>Classroom</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <th:block th:each="student : ${students}">
+        <tr>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}">
+            <td th:text="${student.birthday}">
+            <td th:text="${student.address}">
+            <td th:text="${student.sex}">
+            <td th:text="${student.phone}">
+            <td th:text="${student.getClassroom().getName()}"></td>
+            <td><a th:href="@{/edit-student/__${student.id}__ }">Edit</a></td>
+            <td><a th:href="@{/delete-student/__${student.id}__ }">Delete</a></td>
+        </tr>
+    </th:block>
+    <div>
+        <a th:href="@{'/students'(page=${students.number - 1})}" th:if="${students.hasPrevious()}">Previous</a>
+        <span th:text="${students.number + 1}"></span>/<span th:text="${students.totalPages}"></span>
+        <a th:href="@{'/students'(page=${students.number + 1})}" th:if="${students.hasNext()}">Next</a>
+    </div>
+</table>
+</body>
+</html>
